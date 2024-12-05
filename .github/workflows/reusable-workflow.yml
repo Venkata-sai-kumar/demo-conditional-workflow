@@ -1,0 +1,8 @@
+name: re-usable workflow
+on: workflow_call
+jobs:
+    deploy:
+        runs-on: ubuntu-24.04
+        steps:
+            - name: Output information
+              run: echo "Deploying & Uploading"
