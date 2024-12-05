@@ -9,8 +9,14 @@ jobs:
         continue-on-error: true
         strategy:
             matrix:
-                node-version: [12, 14, 17]
-                operating-system: [ubuntu-latest, windows-latest]
+                node-version: [12, 16]
+                operating-system: [ubuntu-24.04, windows-latest]
+                include:
+                  - node-version: 18
+                    operating-system: ubuntu-latest
+                exlude:
+                  - node-version: 12
+                    operating-system: windows-latest
         runs-on: ${{ matrix.operating-system }}    # ubuntue-24.04
         steps:
             - name: Get code
