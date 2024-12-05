@@ -1,4 +1,4 @@
-name: Matrix Demo
+name: Matrix Stratagies Demo
 on:
     push:
         branches:
@@ -27,6 +27,6 @@ jobs:
                 key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
             - name: Install Dependencies
               if: steps.cache.outputs.cache-hit != 'true'
-              uses: npm ci
+              run: npm ci
             - name: build application
-              uses: npm run build
+              run: npm run build
