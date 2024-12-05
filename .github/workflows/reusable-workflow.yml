@@ -1,8 +1,19 @@
 name: re-usable workflow
-on: workflow_call
+on:
+    workflow_call:
+        inputs:
+            artifact-name:
+                description: the name of deployable artifact
+                required: false
+                default: dist
+                type: string
 jobs:
     deploy:
         runs-on: ubuntu-24.04
         steps:
+            - name: Downloading Artifacts
+              uses: actions/download-artifact@v4
+              with:
+                name: 
             - name: Output information
               run: echo "Deploying & Uploading"
