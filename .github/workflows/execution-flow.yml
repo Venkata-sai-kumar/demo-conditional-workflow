@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
       - name: Lint code
         run: npm run lint
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -40,13 +40,13 @@ jobs:
         run: npm run test
       - name: Upload test report
         if: failure() && steps.run-tests.outcome == 'failure'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: test.json
   build:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -63,16 +63,16 @@ jobs:
         id: build-website
         run: npm run build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: dist
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Get build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-files
       - name: Output contents
@@ -82,7 +82,7 @@ jobs:
   report:
     needs: [lint, deploy]
     if: failure()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Output information
         run: |
